@@ -1,0 +1,19 @@
+# Build and Release Folders
+bin/
+bin-debug/
+bin-release/
+export/
+
+# Other files and folders
+.settings/
+Project-Private.xml
+*.licensekey
+
+# OS files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
