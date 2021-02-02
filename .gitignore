@@ -3,6 +3,8 @@ bin/
 bin-debug/
 bin-release/
 export/
+debug.log
+matches-prod.keystore
 
 # Other files and folders
 .settings/

@@ -2,11 +2,13 @@
 <project>
 	<!-- _________________________ Application Settings _________________________ -->
 
-	<app title="Matches" file="Matches" main="Main" version="0.0.1" company="HaxeFlixel" />
+	<app title="Matches" file="Matches" main="Main" version="0.1.1" company="Titil" unless="unittests" />
+    <app file="TestMain" main="TestMain" if="unittests" />
+	<meta package="pl.titil.matches"/>
 
 	<!--The flixel preloader is not accurate in Chrome. You can use it regularly if you embed the swf into a html file
 		or you can set the actual size of your file manually at "FlxPreloaderBase-onUpdate-bytesTotal"-->
-	<app preloader="flixel.system.FlxPreloader" />
+	<app preloader="Preloader" />
 
 	<!--Minimum without FLX_NO_GAMEPAD: 11.8, without FLX_NO_NATIVE_CURSOR: 11.2-->
 	<set name="SWF_VERSION" value="11.8" />
@@ -14,10 +16,10 @@
 	<!-- ____________________________ Window Settings ___________________________ -->
 
 	<!--These window settings apply to all targets-->
-	<window width="640" height="480" fps="60" background="#000000" hardware="true" vsync="true" />
+	<window width="1920" height="1080" fps="60" background="#000000" hardware="true" vsync="true" />
 
 	<!--HTML5-specific-->
-	<window if="html5" resizable="false" />
+	<window if="html5" resizable="false" width="1920" height="1080" />
 
 	<!--Desktop-specific-->
 	<window if="desktop" orientation="landscape" fullscreen="false" resizable="true" />
@@ -34,6 +36,7 @@
 	<!-- _______________________________ Libraries ______________________________ -->
 
 	<haxelib name="flixel" />
+	<haxelib name="hx3compat" unless="production" />
 
 	<!--In case you want to use the addons package-->
 	<!--<haxelib name="flixel-addons" />-->
@@ -42,7 +45,7 @@
 	<!--<haxelib name="flixel-ui" />-->
 
 	<!--In case you want to use nape with flixel-->
-	<!--<haxelib name="nape" />-->
+	<!--<haxelib name="nape-haxe4" />-->
 
 	<!-- ______________________________ Haxedefines _____________________________ -->
 
@@ -77,6 +80,25 @@
 	<haxedef name="NAPE_RELEASE_BUILD" unless="debug" />
 
 	<!-- _________________________________ Custom _______________________________ -->
+	<certificate path="matches-dev.keystore" alias="matches-dev" password="matches" if="android" unless="debug"/>
+	<architecture name="arm64" exclude="armv7" if="android" />
+	<config:android target-sdk-version="30" />
+	<config:android minimum-sdk-version="23" />
+	<template path="templates/AndroidManifest.xml" rename="app/src/main/AndroidManifest.xml" if="android"/>
+	<!-- <template path="templates/icon.svg" rename="default/icon.svg" /> -->
+	<template path="templates/matches.ico" rename="icon.ico" if="hl" />
+	<template path="icons/android/mipmap-xxxhdpi/ic_launcher.png" rename="favicon.png" if="html5" />
 
+	<icon path="icons/android/mipmap-ldpi/ic_launcher.png" size="36" if="android" />
+	<icon path="icons/android/mipmap-hdpi/ic_launcher.png" size="72" if="android" />
+	<icon path="icons/android/mipmap-xhdpi/ic_launcher.png" size="96" if="android" />
+	<icon path="icons/android/mipmap-xxhdpi/ic_launcher.png" size="144" if="android" />
+	<icon path="icons/android/mipmap-xxxhdpi/ic_launcher.png" size="192" if="android" />
+	<icon path="icons/android/mipmap-xxxhdpi/ic_launcher.png" size="192" />
+
+	<haxeflag name="--no-traces" if="production" />
+
+	<config:android gradle-version="6.5" if="android" />
+	<window hidden="true" if="unittests" />
 	<!--Place custom nodes like icons here (higher priority to override the HaxeFlixel icon)-->
 </project>

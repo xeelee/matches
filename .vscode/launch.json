@@ -2,17 +2,20 @@
 	"version": "0.2.0",
 	"configurations": [
 		{
-			"name": "flash build + launch",
-			"type": "fdb",
-			"request": "launch",
-			"program": "${workspaceRoot}/export/flash/bin/${APPLICATION_FILE}.swf",
-			"preLaunchTask": "flash debug (build only)"
+			"name": "Build + Debug",
+			"type": "lime",
+			"request": "launch"
 		},
 		{
-			"name": "flash launch",
-			"type": "fdb",
+			"name": "Debug",
+			"type": "lime",
 			"request": "launch",
-			"program": "${workspaceRoot}/export/flash/bin/${APPLICATION_FILE}.swf"
+			"preLaunchTask": null
+		},
+		{
+			"name": "Macro",
+			"type": "haxe-eval",
+			"request": "launch"
 		}
 	]
 }
