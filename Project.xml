@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <project>
+	<define name="unittests" if="neko" />
+	<define name="munit" if="unittests" />
+
 	<!-- _________________________ Application Settings _________________________ -->
 
 	<app title="Matches" file="Matches" main="Main" version="0.1.1" company="Titil" unless="unittests" />
@@ -31,13 +34,13 @@
 
 	<set name="BUILD_DIR" value="export" />
 	<classpath name="source" />
-	<classpath name="tests" unless="production" />
+	<classpath name="tests" if="munit" />
 	<assets path="assets" />
 
 	<!-- _______________________________ Libraries ______________________________ -->
 
 	<haxelib name="flixel" />
-	<haxelib name="munit" unless="production" />
+	<haxelib name="munit" if="munit" />
 
 	<!--In case you want to use the addons package-->
 	<!--<haxelib name="flixel-addons" />-->

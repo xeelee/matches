@@ -1,3 +1,4 @@
+#if munit
 package;
 
 import massive.munit.Assert;
@@ -39,3 +40,4 @@ class TestDigit {
         Assert.areEqual(MatchState.InitialActive, digit.getMatches()[6].state);
     }
 }
+#end

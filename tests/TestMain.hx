@@ -1,3 +1,4 @@
+#if munit
 package;
 
 import massive.munit.TestRunner;
@@ -70,3 +71,4 @@ class TestMain {
         catch (e:Dynamic) {}
     }
 }
+#end

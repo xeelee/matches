@@ -1,3 +1,4 @@
+#if munit
 package;
 
 import massive.munit.TestSuite;
@@ -9,3 +10,4 @@ class TestSuite extends massive.munit.TestSuite {
         add(TestDigit);
     }
 }
+#end
