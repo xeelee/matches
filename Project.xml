@@ -103,6 +103,10 @@
 	<haxeflag name="--no-traces" if="production" />
 
 	<config:android gradle-version="6.5" if="android" />
+
 	<window hidden="true" if="unittests" />
+	<set name="no-custom-backend" if="unittests" />
+	<set name="unit-test" if="unittests" />
+	<haxedef name="FLX_UNIT_TEST" if="unittests" />
 	<!--Place custom nodes like icons here (higher priority to override the HaxeFlixel icon)-->
 </project>
