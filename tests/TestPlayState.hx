@@ -14,7 +14,9 @@ class TestPlayState {
         _playState = new PlayState();
         _playState._guidance = Guidance.create();
         _playState._factory = new DigitFactory(matchFactory);
-        _playState._random = new FlxRandom();
+        _playState._random = new FlxRandom(263469696);
+        trace(_playState._random.currentSeed);
+        trace(_playState._random.initialSeed);
         _playState._d1 = _playState._factory.create(0, 0);
         _playState._d2 = _playState._factory.create(100, 0);
         _playState._d3 = _playState._factory.create(200, 0);
@@ -27,11 +29,35 @@ class TestPlayState {
     }
 
     @Test
-    public function testSetNumbers() {
+    public function testSetNumbersOldFixed() {
         _playState._setNumbers(false, 5, 7, 8);
-        Assert.areEqual(_playState._first, 5);
-        Assert.areEqual(_playState._second, 7);
-        Assert.areEqual(_playState._result, 8);
+        Assert.areEqual(5, _playState._first);
+        Assert.areEqual(7, _playState._second);
+        Assert.areEqual(8, _playState._result);
+    }
+
+    @Test
+    public function testSetNumbersNewRandom() {
+        _playState._setNumbers();
+        Assert.areEqual(7, _playState._first);
+        Assert.areEqual(1, _playState._second);
+        Assert.areEqual(6, _playState._result);
+        _playState._setNumbers();
+        Assert.areEqual(6, _playState._first);
+        Assert.areEqual(5, _playState._second);
+        Assert.areEqual(1, _playState._result);
+    }
+
+    @Test
+    public function testSetNumbersOldRandom() {
+        _playState._setNumbers();
+        Assert.areEqual(7, _playState._first);
+        Assert.areEqual(1, _playState._second);
+        Assert.areEqual(6, _playState._result);
+        _playState._setNumbers(false);
+        Assert.areEqual(7, _playState._first);
+        Assert.areEqual(1, _playState._second);
+        Assert.areEqual(6, _playState._result);
     }
 }
 #end

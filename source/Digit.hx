@@ -38,10 +38,9 @@ class Digit {
         }
     }
 
-    public function removeMatch(?randomize:Bool = true):Null<Match> {
+    public function removeMatch(?random:Null<FlxRandom> = null):Null<Match> {
         var arr:Array<Match> = _lastArray;
-        if (randomize) {
-            var random:FlxRandom = new FlxRandom();
+        if (random != null) {
             random.shuffle(arr);
         }
         for (match in arr) {
@@ -56,10 +55,9 @@ class Digit {
         return null;
     }
 
-    public function addMatch(?randomize:Bool = true):Null<Match> {
+    public function addMatch(?random:Null<FlxRandom> = null):Null<Match> {
         var arr:Array<Match> = _lastArray;
-        if (randomize) {
-            var random:FlxRandom = new FlxRandom();
+        if (random != null) {
             random.shuffle(arr);
         }
         for (match in arr) {

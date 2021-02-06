@@ -137,8 +137,8 @@ class PlayState extends FlxState {
                 _random.shuffle(_arrays);
             }
             for (arr in _arrays) {
-                m1 = arr[0].removeMatch(newNumbers);
-                m2 = arr[1].addMatch(newNumbers);
+                m1 = arr[0].removeMatch(if (newNumbers) _random else null);
+                m2 = arr[1].addMatch(if (newNumbers) _random else null);
                 if (m1 != null && m2 != null && !_verify()) {
                     if (!newNumbers) {
                         _guidance.clearMatches();
