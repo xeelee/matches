@@ -29,35 +29,48 @@ class TestPlayState {
     }
 
     @Test
+    public function testGenerateNumbers() {
+        Assert.areEqual([5, 2, 3], _playState._generateNumbers(_playState._random));
+    }
+
+    @Test
     public function testSetNumbersOldFixed() {
-        _playState._setNumbers(false, 5, 7, 8);
-        Assert.areEqual(5, _playState._first);
-        Assert.areEqual(7, _playState._second);
-        Assert.areEqual(8, _playState._result);
+        Assert.isTrue(_playState._setNumbers(false, 5, 7, 8));
+        Assert.areEqual(5, _playState._d1.value);
+        Assert.areEqual(7, _playState._d2.value);
+        Assert.areEqual(8, _playState._d3.value);
+    }
+
+    @Test
+    public function testSetNumbersOldFixedInvalid() {
+        Assert.isFalse(_playState._setNumbers(false, 1, 1));
+        Assert.areEqual(1, _playState._d1.value);
+        Assert.areEqual(1, _playState._d2.value);
+        Assert.areEqual(null, _playState._d3.value);
     }
 
     @Test
     public function testSetNumbersNewRandom() {
-        _playState._setNumbers();
-        Assert.areEqual(7, _playState._first);
-        Assert.areEqual(1, _playState._second);
-        Assert.areEqual(6, _playState._result);
-        _playState._setNumbers();
-        Assert.areEqual(6, _playState._first);
-        Assert.areEqual(5, _playState._second);
-        Assert.areEqual(1, _playState._result);
+        Assert.isTrue(_playState._setNumbers());
+        Assert.areEqual(7, _playState._d1.value);
+        Assert.areEqual(1, _playState._d2.value);
+        Assert.areEqual(6, _playState._d3.value);
+        Assert.isTrue(_playState._setNumbers());
+        Assert.areEqual(6, _playState._d1.value);
+        Assert.areEqual(5, _playState._d2.value);
+        Assert.areEqual(1, _playState._d3.value);
     }
 
     @Test
     public function testSetNumbersOldRandom() {
-        _playState._setNumbers();
-        Assert.areEqual(7, _playState._first);
-        Assert.areEqual(1, _playState._second);
-        Assert.areEqual(6, _playState._result);
-        _playState._setNumbers(false);
-        Assert.areEqual(7, _playState._first);
-        Assert.areEqual(1, _playState._second);
-        Assert.areEqual(6, _playState._result);
+        Assert.isTrue(_playState._setNumbers());
+        Assert.areEqual(7, _playState._d1.value);
+        Assert.areEqual(1, _playState._d2.value);
+        Assert.areEqual(6, _playState._d3.value);
+        Assert.isTrue(_playState._setNumbers(false));
+        Assert.areEqual(7, _playState._d1.value);
+        Assert.areEqual(1, _playState._d2.value);
+        Assert.areEqual(6, _playState._d3.value);
     }
 }
 #end

@@ -12,6 +12,8 @@ class Digit {
     private var _lowerRight:Match;
     private var _lastArray:Array<Match>;
 
+    public var value(default, null):Null<Int> = null;
+
     public function new(upper:Match, middle:Match, lower:Match, upperLeft:Match, upperRight:Match, lowerLeft:Match, lowerRight:Match) {
         _upper = upper;
         _middle = middle;
@@ -81,6 +83,7 @@ class Digit {
                 match.onInitInactive();
             }
         }
+        this.value = value;
     }
 
     public function isProper():Bool {

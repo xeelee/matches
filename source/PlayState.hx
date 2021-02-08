@@ -9,6 +9,8 @@ import flixel.math.FlxRandom;
 import flixel.system.FlxSound;
 import flixel.tweens.FlxTween;
 import flixel.util.FlxTimer;
+import haxe.ds.Vector;
+import openfl.geom.Vector3D;
 import utils.TouchDetector;
 
 class PlayState extends FlxState {
@@ -26,9 +28,6 @@ class PlayState extends FlxState {
     private var _d3:Digit;
     private var _allMatches:Array<Match> = [];
     private var _operatorMatches:Array<Match> = [];
-    private var _first:Int;
-    private var _second:Int;
-    private var _result:Int;
     private var _arrays:Array<Array<Digit>>;
     private var _timer:FlxTimer;
     private var _timeControl:TimeControl;
@@ -111,27 +110,27 @@ class PlayState extends FlxState {
         for (match in _operatorMatches) {
             match.state = MatchState.InitialActive;
         }
+        var digits = [_d1, _d2, _d3];
+        var numbersOverride = [first, second, result];
         while (m1 == null || m2 == null) {
             if (++counter > 100) {
-                return _setNumbers(false, 5, 7, 8);
+                if (first == null && second == null) {
+                    return _setNumbers(false, 5, 7, 8);
+                }
+                return false;
             }
             if (newNumbers) {
-                var a:Int = _random.int(0, 9);
-                var b:Int = _random.int(0, 9);
-                _first = a > b ? a : b;
-                _second = a > b ? b : a;
-                _result = _first - _second;
+                var numbers = _generateNumbers(_random);
+                for (i => d in digits) {
+                    d.set(numbers[i]);
+                }
             }
-            if (first != null)
-                _first = first;
-            if (second != null)
-                _second = second;
-            if (result != null)
-                _result = result;
-            _d1.set(_first);
-            _d2.set(_second);
-            _d3.set(_result);
-            trace(_first, _second, _result);
+            for (i => number in numbersOverride) {
+                if (number != null) {
+                    digits[i].set(number);
+                }
+            }
+            trace(_d1.value, _d2.value, _d3.value);
             _arrays = [[_d1, _d3], [_d2, _d3], [_d1, _d2], [_d3, _d1], [_d3, _d2], [_d2, _d1]];
             if (newNumbers) {
                 _random.shuffle(_arrays);
@@ -148,14 +147,26 @@ class PlayState extends FlxState {
                     break;
                 }
                 else {
-                    if (m1 != null)
+                    if (m1 != null) {
                         arr[0].invertMatchState(m1);
-                    if (m2 != null)
+                    }
+                    if (m2 != null) {
                         arr[1].invertMatchState(m2);
+                    }
                 }
             }
         }
         return true;
+    }
+
+    private function _generateNumbers(random:FlxRandom):Array<Int> {
+        var arr:Array<Int> = [];
+        for (i in 0...2) {
+            arr.push(random.int(0, 9));
+        }
+        arr.sort((a:Int, b:Int) -> b - a);
+        arr.push(arr[0] - arr[1]);
+        return arr;
     }
 
     override public function update(elapsed:Float):Void {

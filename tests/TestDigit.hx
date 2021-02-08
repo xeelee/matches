@@ -38,6 +38,7 @@ class TestDigit {
         Assert.areEqual(MatchState.InitialActive, digit.getMatches()[4].state);
         Assert.areEqual(MatchState.InitialInactive, digit.getMatches()[5].state);
         Assert.areEqual(MatchState.InitialActive, digit.getMatches()[6].state);
+        Assert.areEqual(7, digit.value);
     }
 }
 #end
